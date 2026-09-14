@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>NaviMap Charts — NOT FOR NAVIGATION</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="mark" aria-hidden="true">N</span>
+          <div>
+            <strong>NaviMap Charts</strong>
+            <p data-i18n="tagline">Éditeur de cartes marines libres · non-ECDIS</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <label class="sr-only" for="lang">Langue</label>
+          <select id="lang" aria-label="Langue">
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+          </select>
+          <fieldset class="palettes" id="palettes">
+            <legend class="sr-only" data-i18n="palette">Palette</legend>
+            <button type="button" data-palette="day" class="is-active">Jour</button>
+            <button type="button" data-palette="dusk">Crépuscule</button>
+            <button type="button" data-palette="night">Nuit</button>
+          </fieldset>
+        </div>
+      </header>
+
+      <aside class="panel" id="panel">
+        <p class="kicker" data-i18n="coverageTitle">Première couverture prévue</p>
+        <h1 data-i18n="coverageLead">ENC NOAA · eaux des États-Unis</h1>
+        <p class="lede" data-i18n="coverageBody">
+          Les tuiles nautiques NaviMap ne sont pas encore compilées.
+          Le fond actuel est une carte terrestre ouverte. Le calque jaune
+          montre où les cellules NOAA (domaine public) seront assemblées en premier.
+        </p>
+        <ul class="sources">
+          <li data-i18n="srcNoaa">NOAA ENC — domaine public</li>
+          <li data-i18n="srcOsm">OpenStreetMap seamark:* — ODbL</li>
+          <li data-i18n="srcBathy">EMODnet / GEBCO — plus tard</li>
+        </ul>
+        <p class="panel-note" data-i18n="srcForbidden">
+          Aucune cellule SHOM, UKHO ou autre service payant n’est utilisée.
+        </p>
+      </aside>
+
+      <div id="map" role="application" aria-label="Carte NaviMap Charts"></div>
+
+      <div class="watermark" data-i18n="watermark">NOT FOR NAVIGATION</div>
+
+      <footer class="attrib">
+        <span data-i18n="attrib">
+          Fond © OpenFreeMap · données © OpenStreetMap contributors ·
+          couverture prévue : NOAA ENC (domaine public)
+        </span>
+      </footer>
+    </div>
+
+    <dialog id="disclaimer" class="disclaimer">
+      <form method="dialog">
+        <p class="disclaimer-kicker">NOT FOR NAVIGATION</p>
+        <h2 data-i18n="discTitle">Non destiné à la navigation officielle</h2>
+        <p data-i18n="discBody">
+          NaviMap Charts est un outil informatif. Ce n’est pas un ECDIS, ni
+          une carte officielle. Vérifiez toujours les documents nautiques
+          exigés par votre pavillon. Vous restez seul responsable de la
+          conduite du navire.
+        </p>
+        <label class="accept">
+          <input type="checkbox" id="accept" />
+          <span data-i18n="discAccept">
+            Je comprends : cet outil ne remplace pas une carte marine officielle.
+          </span>
+        </label>
+        <button type="submit" id="enter" disabled data-i18n="discEnter">
+          Entrer dans le viewer
+        </button>
+      </form>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

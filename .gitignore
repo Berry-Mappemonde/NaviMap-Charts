@@ -1,0 +1,25 @@
+# Dépendances et builds
+node_modules/
+client/dist/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+
+# Données hydrographiques (trop lourdes, jamais commiter)
+data/*
+!data/.gitkeep
+*.pmtiles
+*.000
+*.zip
+
+# Secrets et environnement local
+.env
+.env.local
+*.pem
+
+# OS / éditeurs
+.DS_Store
+.idea/
+.vscode/

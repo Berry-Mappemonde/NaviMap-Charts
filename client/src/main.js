@@ -1,0 +1,34 @@
+import "maplibre-gl/dist/maplibre-gl.css";
+import "./styles.css";
+import { applyLang } from "./i18n.js";
+import { bindDisclaimer } from "./disclaimer.js";
+import { createMap, setPalette } from "./map.js";
+
+const langSelect = document.getElementById("lang");
+const palettes = document.getElementById("palettes");
+let map = null;
+
+function bootMap() {
+  if (map) return;
+  document.getElementById("app").classList.add("is-ready");
+  map = createMap("map");
+}
+
+applyLang(langSelect.value);
+langSelect.addEventListener("change", () => applyLang(langSelect.value));
+
+palettes.addEventListener("click", (event) => {
+  const btn = event.target.closest("[data-palette]");
+  if (!btn) return;
+  palettes.querySelectorAll("[data-palette]").forEach((el) => {
+    el.classList.toggle("is-active", el === btn);
+  });
+  if (map) setPalette(map, btn.getAttribute("data-palette"));
+});
+
+bindDisclaimer({
+  dialog: document.getElementById("disclaimer"),
+  checkbox: document.getElementById("accept"),
+  button: document.getElementById("enter"),
+  onAccept: bootMap,
+});
