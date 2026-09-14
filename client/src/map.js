@@ -21,7 +21,7 @@ function addCoverage(map) {
     source: COVERAGE_SOURCE,
     paint: {
       "fill-color": "#c9a227",
-      "fill-opacity": 0.32,
+      "fill-opacity": 0.12,
     },
   });
   map.addLayer({
