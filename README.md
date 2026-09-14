@@ -1,5 +1,7 @@
 # NaviMap Charts
 
+Dépôt : [github.com/NAVIGUIDE-for-Berry-Mappemonde/NaviMap-Charts](https://github.com/NAVIGUIDE-for-Berry-Mappemonde/NaviMap-Charts)
+
 Éditeur de cartes marines **libres**, **non-ECDIS**.
 
 > **NOT FOR NAVIGATION — non destiné à la navigation officielle.**
@@ -16,6 +18,7 @@ les IENC européennes et les bathymétries EMODnet / GEBCO.
 2. Dans le Terminal :
 
 ```bash
+git clone https://github.com/NAVIGUIDE-for-Berry-Mappemonde/NaviMap-Charts.git
 cd NaviMap-Charts/client
 npm install
 npm run dev
