@@ -27,9 +27,45 @@ npm run dev
 3. Ouvrez l’adresse affichée (en général `http://localhost:5173`).
 4. Cochez la case d’avertissement — sans elle, la carte ne s’affiche pas.
 
-Le fond actuel est une carte **terrestre** ouverte (OpenFreeMap). Le calque
-jaune montre la première zone prévue : les eaux américaines couvertes par
-les ENC NOAA. Nos propres tuiles nautiques arriveront en V1.
+Le fond actuel est une carte **terrestre** ouverte (OpenStreetMap). Pour la carte
+auto-actualisée qui réunit Charts, Ground et Satellites, utilisez plutôt le
+serveur live :
+
+```bash
+cd client
+npm run live
+```
+
+Ouvrez `http://localhost:5173`. Le serveur expose un flux SSE
+`GET /api/events`; les pipelines publient leurs statuts et leurs couches sur
+`POST /api/events`. Les reconnexions reçoivent immédiatement l’état courant,
+donc aucune actualisation manuelle de la page n’est nécessaire.
+
+Dans deux autres terminaux, par exemple :
+
+```bash
+# Couches Charts de démonstration : tuiles, emprise ENC, bathymétrie
+cd navimap-charts/client
+npm run demo:live
+
+# Les autres dépôts publient leurs vraies sorties dès qu’elles sont écrites
+navimap-ground demo --out out --live-url http://localhost:5173
+navimap-sat demo --out work/demo --live-url http://localhost:5173 --live-delay 0.8
+```
+
+`NAVIMAP_LIVE_MAP_URL=http://localhost:5173` remplace aussi l’option
+`--live-url` côté Python.
+
+Pour une démonstration, ouvrez `http://localhost:5173/?demo=1` : un bouton
+rejoue progressivement l’état réellement reçu par le hub (il ne régénère pas
+de données).
+
+Pour servir un build sans Vite :
+
+```bash
+npm run build
+npm start
+```
 
 ## Lister les cellules NOAA (sans tout télécharger)
 

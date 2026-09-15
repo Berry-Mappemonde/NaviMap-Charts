@@ -13,8 +13,8 @@
         <div class="brand">
           <span class="mark" aria-hidden="true">N</span>
           <div>
-            <strong>NaviMap Charts</strong>
-            <p data-i18n="tagline">Éditeur de cartes marines libres · non-ECDIS</p>
+            <strong>NaviMaps Live</strong>
+            <p>Charts · Ground · Satellites</p>
           </div>
         </div>
         <div class="topbar-actions">
@@ -32,22 +32,35 @@
         </div>
       </header>
 
-      <aside class="panel" id="panel">
-        <p class="kicker" data-i18n="coverageTitle">Première couverture prévue</p>
-        <h1 data-i18n="coverageLead">ENC NOAA · eaux des États-Unis</h1>
-        <p class="lede" data-i18n="coverageBody">
-          Les tuiles nautiques NaviMap ne sont pas encore compilées.
-          Le fond actuel est une carte terrestre ouverte. Le calque jaune
-          montre où les cellules NOAA (domaine public) seront assemblées en premier.
-        </p>
-        <ul class="sources">
-          <li data-i18n="srcNoaa">NOAA ENC — domaine public</li>
-          <li data-i18n="srcOsm">OpenStreetMap seamark:* — ODbL</li>
-          <li data-i18n="srcBathy">EMODnet / GEBCO — plus tard</li>
-        </ul>
-        <p class="panel-note" data-i18n="srcForbidden">
-          Aucune cellule SHOM, UKHO ou autre service payant n’est utilisée.
-        </p>
+      <section class="status-banner" aria-live="polite">
+        <div class="connection" id="connection">
+          <span class="connection-dot" aria-hidden="true"></span>
+          <span id="connection-text">Connexion au flux…</span>
+        </div>
+        <div class="status-copy">
+          <strong id="status-pipeline">NaviMaps</strong>
+          <span id="status-message">En attente des pipelines</span>
+        </div>
+        <progress id="status-progress" max="100" value="0" hidden></progress>
+        <span class="status-warning">PROGRESSION · PAS POUR LA NAVIGATION</span>
+      </section>
+
+      <aside class="panel live-panel" id="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="kicker">Couches en direct</p>
+            <h1>Atelier hydrographique</h1>
+          </div>
+          <span class="pulse" aria-hidden="true"></span>
+        </div>
+        <div id="live-layers" class="live-layers"></div>
+        <button id="replay-live" class="replay-live" type="button" hidden>
+          Rejouer l’arrivée des couches
+        </button>
+        <div class="activity-block">
+          <h2>Ce qui arrive</h2>
+          <ol id="activity" class="activity"></ol>
+        </div>
       </aside>
 
       <div id="map" role="application" aria-label="Carte NaviMap Charts"></div>
@@ -56,8 +69,8 @@
 
       <footer class="attrib">
         <span data-i18n="attrib">
-          Fond © OpenFreeMap · données © OpenStreetMap contributors ·
-          couverture prévue : NOAA ENC (domaine public)
+          Fond et données © OpenStreetMap contributors ·
+          couches reçues : sources et licences des pipelines
         </span>
       </footer>
     </div>

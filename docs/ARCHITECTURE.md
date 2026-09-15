@@ -58,8 +58,26 @@ parseur S-57 sera branché.
 
 `client/` : MapLibre GL, palettes jour / crépuscule / nuit, bandeau et
 modale juridiques. Tant que nos tuiles n’existent pas, le fond est une
-carte terrestre ouverte (OpenFreeMap). Le calque « couverture prévue »
-montre où les ENC NOAA seront compilées en premier.
+carte terrestre ouverte (tuiles OpenStreetMap).
+
+Le serveur `client/server.mjs` ajoute un hub live en mémoire :
+
+```
+Charts ──────┐  POST /api/events       GET /api/events (SSE)
+Ground ──────┼────────────────► hub ───────────────────────► MapLibre
+Satellites ──┘                 état courant                 couches + statut
+```
+
+Un événement `status` alimente le bandeau de progression. Un événement
+`layer` ajoute, remplace ou retire une source MapLibre (`geojson`, `image`,
+`raster` ou `vector`). Chaque couche porte un groupe `charts`, `ground` ou
+`satellites`; le viewer construit les interrupteurs à partir de cet état.
+
+Le hub conserve la dernière version de chaque couche et de chaque statut.
+À l’ouverture ou après une coupure réseau, le premier événement SSE est un
+instantané complet. Les producteurs restent découplés : ils utilisent un
+simple POST JSON, et une panne du viewer ne doit jamais faire échouer un
+traitement scientifique.
 
 ## Ce que ce dépôt n’est pas
 

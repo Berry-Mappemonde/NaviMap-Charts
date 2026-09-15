@@ -1,13 +1,62 @@
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 import { NOAA_PLANNED_COVERAGE } from "./coverage.js";
 
-const STYLES = {
-  day: "https://tiles.openfreemap.org/styles/liberty",
-  dusk: "https://tiles.openfreemap.org/styles/positron",
-  night: "https://tiles.openfreemap.org/styles/dark",
+const PALETTES = {
+  day: {
+    background: "#d7e5eb",
+    raster: { "raster-saturation": -0.2, "raster-contrast": 0.05 },
+  },
+  dusk: {
+    background: "#253c4d",
+    raster: {
+      "raster-saturation": -0.55,
+      "raster-contrast": 0.2,
+      "raster-brightness-min": 0.18,
+      "raster-brightness-max": 0.72,
+    },
+  },
+  night: {
+    background: "#071521",
+    raster: {
+      "raster-saturation": -0.8,
+      "raster-contrast": 0.3,
+      "raster-brightness-min": 0.04,
+      "raster-brightness-max": 0.38,
+    },
+  },
 };
 
 const COVERAGE_SOURCE = "noaa-planned";
+
+function styleFor(name) {
+  const palette = PALETTES[name] || PALETTES.day;
+  return {
+    version: 8,
+    sources: {
+      "osm-basemap": {
+        type: "raster",
+        tiles: [
+          "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        ],
+        tileSize: 256,
+        attribution: "© OpenStreetMap contributors",
+      },
+    },
+    layers: [
+      {
+        id: "background",
+        type: "background",
+        paint: { "background-color": palette.background },
+      },
+      {
+        id: "osm-basemap",
+        type: "raster",
+        source: "osm-basemap",
+        paint: palette.raster,
+      },
+    ],
+  };
+}
 
 function addCoverage(map) {
   if (map.getSource(COVERAGE_SOURCE)) return;
@@ -39,7 +88,7 @@ function addCoverage(map) {
 export function createMap(container) {
   const map = new maplibregl.Map({
     container,
-    style: STYLES.day,
+    style: styleFor("day"),
     center: [-76.3, 37.6],
     zoom: 6.2,
     attributionControl: false,
@@ -52,7 +101,6 @@ export function createMap(container) {
 }
 
 export function setPalette(map, name) {
-  const url = STYLES[name] || STYLES.day;
-  map.setStyle(url);
+  map.setStyle(styleFor(name));
   map.once("styledata", () => addCoverage(map));
 }

@@ -1,6 +1,6 @@
 export const STRINGS = {
   fr: {
-    tagline: "Éditeur de cartes marines libres · non-ECDIS",
+    tagline: "Charts · Ground · Satellites en direct",
     palette: "Palette",
     coverageTitle: "Première couverture prévue",
     coverageLead: "ENC NOAA · eaux des États-Unis",
@@ -13,7 +13,7 @@ export const STRINGS = {
       "Aucune cellule SHOM, UKHO ou autre service payant n’est utilisée.",
     watermark: "NOT FOR NAVIGATION",
     attrib:
-      "Fond © OpenFreeMap · données © OpenStreetMap contributors · couverture prévue : NOAA ENC (domaine public)",
+      "Fond et données © OpenStreetMap contributors · couches reçues : sources et licences des pipelines",
     discTitle: "Non destiné à la navigation officielle",
     discBody:
       "NaviMap Charts est un outil informatif. Ce n’est pas un ECDIS, ni une carte officielle. Vérifiez toujours les documents nautiques exigés par votre pavillon. Vous restez seul responsable de la conduite du navire.",
@@ -25,7 +25,7 @@ export const STRINGS = {
     night: "Nuit",
   },
   en: {
-    tagline: "Free marine chart editor · non-ECDIS",
+    tagline: "Live Charts · Ground · Satellites",
     palette: "Palette",
     coverageTitle: "First planned coverage",
     coverageLead: "NOAA ENC · United States waters",
@@ -38,7 +38,7 @@ export const STRINGS = {
       "No SHOM, UKHO, or other paywalled hydrographic cells are used.",
     watermark: "NOT FOR NAVIGATION",
     attrib:
-      "Basemap © OpenFreeMap · data © OpenStreetMap contributors · planned coverage: NOAA ENC (public domain)",
+      "Basemap and data © OpenStreetMap contributors · live layers: pipeline sources and licences",
     discTitle: "Not for official navigation",
     discBody:
       "NaviMap Charts is an informational tool. It is not an ECDIS and not an official chart. Always carry the nautical documents required by your flag state. You remain solely responsible for the conduct of the vessel.",
