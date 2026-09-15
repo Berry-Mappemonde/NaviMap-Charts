@@ -1,0 +1,8 @@
+{
+  "name": "NaviMap Charts",
+  "install": "cd client && npm ci",
+  "repositoryDependencies": [
+    "github.com/Berry-Mappemonde/NaviMap-Ground",
+    "github.com/Berry-Mappemonde/NaviMap-Satellites"
+  ]
+}

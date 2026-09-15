@@ -21,7 +21,7 @@ from pathlib import Path
 CATALOG_URL = "https://www.charts.noaa.gov/ENCs/ENCProdCat.xml"
 USER_AGENT = (
     "NaviMap-Charts/0.1 "
-    "(+https://github.com/NAVIGUIDE-for-Berry-Mappemonde/NaviMap-Charts)"
+    "(+https://github.com/Berry-Mappemonde/NaviMap-Charts)"
 )
 DEFAULT_DATA_DIR = Path(__file__).resolve().parents[2] / "data" / "noaa-enc"
 

@@ -1,6 +1,6 @@
 # NaviMap Charts
 
-Dépôt : [github.com/NAVIGUIDE-for-Berry-Mappemonde/NaviMap-Charts](https://github.com/NAVIGUIDE-for-Berry-Mappemonde/NaviMap-Charts)
+Dépôt officiel : [github.com/Berry-Mappemonde/NaviMap-Charts](https://github.com/Berry-Mappemonde/NaviMap-Charts)
 
 Éditeur de cartes marines **libres**, **non-ECDIS**.
 
@@ -18,7 +18,7 @@ les IENC européennes et les bathymétries EMODnet / GEBCO.
 2. Dans le Terminal :
 
 ```bash
-git clone https://github.com/NAVIGUIDE-for-Berry-Mappemonde/NaviMap-Charts.git
+git clone https://github.com/Berry-Mappemonde/NaviMap-Charts.git
 cd NaviMap-Charts/client
 npm install
 npm run dev
@@ -30,6 +30,25 @@ npm run dev
 Le fond actuel est une carte **terrestre** ouverte (OpenFreeMap). Le calque
 jaune montre la première zone prévue : les eaux américaines couvertes par
 les ENC NOAA. Nos propres tuiles nautiques arriveront en V1.
+
+## Programme NaviMap (organisation Berry-Mappemonde)
+
+Les trois ateliers sont sous l’organisation GitHub
+**[Berry-Mappemonde](https://github.com/Berry-Mappemonde)**, et non plus
+sous le compte personnel `NAVIGUIDE-for-Berry-Mappemonde`.
+
+| Atelier | Dépôt |
+|---|---|
+| Cartes (ce dépôt) | [NaviMap-Charts](https://github.com/Berry-Mappemonde/NaviMap-Charts) |
+| Documents / calage | [NaviMap-Ground](https://github.com/Berry-Mappemonde/NaviMap-Ground) |
+| Satellite | [NaviMap-Satellites](https://github.com/Berry-Mappemonde/NaviMap-Satellites) |
+
+Dans Cursor, ouvrez l’agent ou l’environnement Cloud **depuis ces URLs**.
+Un favori ou un clone encore pointé vers
+`NAVIGUIDE-for-Berry-Mappemonde/NaviMap-*` produit le toast
+*You do not have access to this repository*. Enchaîner les tentatives
+déclenche *GitHub is rate limiting requests* : attendre la fin de l’heure
+UTC, puis réessayer avec l’URL d’organisation.
 
 ## Lister les cellules NOAA (sans tout télécharger)
 
