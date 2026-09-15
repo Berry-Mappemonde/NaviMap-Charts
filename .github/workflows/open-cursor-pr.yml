@@ -1,0 +1,47 @@
+name: Ouvrir les PR Cursor
+
+"on":
+  push:
+    branches: ["cursor/**"]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.PR_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          script: |
+            const head = context.ref.replace("refs/heads/", "");
+            const { owner, repo } = context.repo;
+            const existing = await github.paginate(github.rest.pulls.list, {
+              owner, repo, head: `${owner}:${head}`, state: "all", per_page: 100
+            });
+            if (existing.length) {
+              core.info(`PR déjà suivie : ${existing[0].html_url}`);
+              return;
+            }
+            const comparison = await github.rest.repos.compareCommitsWithBasehead({
+              owner, repo, basehead: `main...${head}`
+            });
+            const subjects = comparison.data.commits
+              .map(({ commit }) => commit.message.split("\n")[0])
+              .filter((subject) => !subject.startsWith("chore: enable Cursor PR workflow"));
+            const title = subjects.at(-1) || `chore: ${head.replace("cursor/", "")}`;
+            const body = [
+              `PR ouverte automatiquement pour \`${head}\`.`,
+              "",
+              "Le compte GitHub personnel refuse la création directe par `cursor[bot]`;",
+              "ce workflow utilise le `GITHUB_TOKEN` du dépôt.",
+              "",
+              "### Commits",
+              ...comparison.data.commits.map(({ commit }) => `- ${commit.message.split("\n")[0]}`),
+            ].join("\n");
+            const pr = await github.rest.pulls.create({
+              owner, repo, base: "main", head, title, body, draft: true
+            });
+            core.info(pr.data.html_url);
