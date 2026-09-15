@@ -3,6 +3,7 @@ import "./styles.css";
 import { applyLang } from "./i18n.js";
 import { bindDisclaimer } from "./disclaimer.js";
 import { createMap, setPalette } from "./map.js";
+import { bindLiveMap } from "./live.js";
 
 const langSelect = document.getElementById("lang");
 const palettes = document.getElementById("palettes");
@@ -12,6 +13,7 @@ function bootMap() {
   if (map) return;
   document.getElementById("app").classList.add("is-ready");
   map = createMap("map");
+  bindLiveMap(map);
 }
 
 applyLang(langSelect.value);

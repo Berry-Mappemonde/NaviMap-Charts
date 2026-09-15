@@ -6,8 +6,12 @@
   "description": "Viewer NaviMap Charts — non-ECDIS, not for navigation",
   "scripts": {
     "dev": "vite",
+    "live": "node server.mjs",
     "build": "vite build",
-    "preview": "vite preview"
+    "start": "node server.mjs --production",
+    "preview": "vite preview",
+    "demo:live": "node scripts/demo-live.mjs",
+    "test": "node --test"
   },
   "dependencies": {
     "maplibre-gl": "^5.7.3"
