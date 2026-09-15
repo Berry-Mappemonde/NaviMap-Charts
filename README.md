@@ -50,6 +50,11 @@ Un favori ou un clone encore pointé vers
 déclenche *GitHub is rate limiting requests* : attendre la fin de l’heure
 UTC, puis réessayer avec l’URL d’organisation.
 
+Sur l’organisation GitHub, cocher
+*Allow GitHub Actions to create and approve pull requests*
+(Settings → Actions → General). Sinon les PR Cloud Agent restent bloquées
+(`must be a collaborator`). Détail : [`docs/GITHUB_PR_CURSOR.md`](docs/GITHUB_PR_CURSOR.md).
+
 ## Lister les cellules NOAA (sans tout télécharger)
 
 Python 3.11+ suffit, aucune bibliothèque à installer :
