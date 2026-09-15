@@ -1,6 +1,8 @@
 const base = (process.env.NAVIMAP_LIVE_MAP_URL || "http://localhost:5173").replace(/\/$/, "");
 const delayIndex = process.argv.indexOf("--delay");
 const delay = delayIndex >= 0 ? Number(process.argv[delayIndex + 1]) : 900;
+const startDelayIndex = process.argv.indexOf("--start-delay");
+const startDelay = startDelayIndex >= 0 ? Number(process.argv[startDelayIndex + 1]) : 0;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function post(event) {
@@ -26,6 +28,7 @@ const line = (coordinates, properties = {}) => ({
 });
 
 await fetch(`${base}/api/reset`, { method: "POST" });
+await sleep(startDelay);
 await post({
   type: "status",
   pipeline: "charts",

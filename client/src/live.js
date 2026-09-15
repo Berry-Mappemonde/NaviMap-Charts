@@ -1,4 +1,4 @@
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
 
 const GROUPS = {
   charts: { title: "Charts", color: "#e8c547" },
@@ -222,9 +222,9 @@ export class LiveMap {
   }
 
   restore() {
+    this.renderControls();
     if (!this.map.isStyleLoaded()) return;
     for (const layer of this.layers.values()) this.install(layer);
-    this.renderControls();
   }
 
   focus(layer) {

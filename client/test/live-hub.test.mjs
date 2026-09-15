@@ -53,3 +53,30 @@ test("ouvre un flux SSE avec un instantané", async () => {
     controller.abort();
   });
 });
+
+test("rejoue l'état courant comme une suite d'événements", async () => {
+  const hub = new LiveHub({ heartbeatMs: 60_000 });
+  hub.state.apply({
+    type: "status",
+    pipeline: "ground",
+    phase: "complete",
+    message: "Ground prêt",
+    progress: 1,
+  });
+  hub.state.apply({
+    type: "layer",
+    pipeline: "ground",
+    layer: {
+      id: "ground-demo",
+      title: "Ground",
+      kind: "geojson",
+      data: { type: "FeatureCollection", features: [] },
+    },
+  });
+  assert.equal(hub.replay(5), 2);
+  assert.equal(hub.state.snapshot().layers.length, 0);
+  await new Promise((resolve) => setTimeout(resolve, 530));
+  assert.equal(hub.state.snapshot().statuses[0].message, "Ground prêt");
+  assert.equal(hub.state.snapshot().layers[0].id, "ground-demo");
+  hub.close();
+});

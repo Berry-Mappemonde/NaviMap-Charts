@@ -7,6 +7,7 @@ import { bindLiveMap } from "./live.js";
 
 const langSelect = document.getElementById("lang");
 const palettes = document.getElementById("palettes");
+const replay = document.getElementById("replay-live");
 let map = null;
 
 function bootMap() {
@@ -27,6 +28,22 @@ palettes.addEventListener("click", (event) => {
   });
   if (map) setPalette(map, btn.getAttribute("data-palette"));
 });
+
+if (new URLSearchParams(window.location.search).has("demo")) {
+  replay.hidden = false;
+  replay.addEventListener("click", async () => {
+    replay.disabled = true;
+    replay.textContent = "Flux en cours…";
+    try {
+      await fetch("/api/replay?interval=650", { method: "POST" });
+    } finally {
+      window.setTimeout(() => {
+        replay.disabled = false;
+        replay.textContent = "Rejouer l’arrivée des couches";
+      }, 9_000);
+    }
+  });
+}
 
 bindDisclaimer({
   dialog: document.getElementById("disclaimer"),

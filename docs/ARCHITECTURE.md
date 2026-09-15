@@ -58,7 +58,7 @@ parseur S-57 sera branché.
 
 `client/` : MapLibre GL, palettes jour / crépuscule / nuit, bandeau et
 modale juridiques. Tant que nos tuiles n’existent pas, le fond est une
-carte terrestre ouverte (OpenFreeMap).
+carte terrestre ouverte (tuiles OpenStreetMap).
 
 Le serveur `client/server.mjs` ajoute un hub live en mémoire :
 

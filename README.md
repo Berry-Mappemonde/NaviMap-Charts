@@ -27,7 +27,7 @@ npm run dev
 3. Ouvrez l’adresse affichée (en général `http://localhost:5173`).
 4. Cochez la case d’avertissement — sans elle, la carte ne s’affiche pas.
 
-Le fond actuel est une carte **terrestre** ouverte (OpenFreeMap). Pour la carte
+Le fond actuel est une carte **terrestre** ouverte (OpenStreetMap). Pour la carte
 auto-actualisée qui réunit Charts, Ground et Satellites, utilisez plutôt le
 serveur live :
 
@@ -55,6 +55,10 @@ navimap-sat demo --out work/demo --live-url http://localhost:5173 --live-delay 0
 
 `NAVIMAP_LIVE_MAP_URL=http://localhost:5173` remplace aussi l’option
 `--live-url` côté Python.
+
+Pour une démonstration, ouvrez `http://localhost:5173/?demo=1` : un bouton
+rejoue progressivement l’état réellement reçu par le hub (il ne régénère pas
+de données).
 
 Pour servir un build sans Vite :
 

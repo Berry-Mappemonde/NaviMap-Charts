@@ -129,6 +129,14 @@ body { font-family: var(--font); }
   color: var(--ink); font-size: 0.82rem; cursor: pointer;
 }
 .layer-toggle input { width: 0.95rem; height: 0.95rem; margin: 0; accent-color: var(--gold); }
+.replay-live {
+  width: 100%; margin: 0.35rem 0 0.75rem; padding: 0.45rem 0.6rem;
+  border: 1px solid rgba(232, 197, 71, 0.55); border-radius: 0.35rem;
+  background: rgba(232, 197, 71, 0.1); color: var(--gold);
+  font: 0.68rem var(--mono); cursor: pointer;
+}
+.replay-live:hover:not(:disabled) { background: rgba(232, 197, 71, 0.18); }
+.replay-live:disabled { cursor: wait; opacity: 0.65; }
 .activity-block { border-top: 1px solid var(--line); padding-top: 0.65rem; }
 .activity-block h2 {
   margin: 0 0 0.35rem; color: var(--muted); font-family: var(--mono);

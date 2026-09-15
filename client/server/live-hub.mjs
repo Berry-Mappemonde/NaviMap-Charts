@@ -44,6 +44,7 @@ export class LiveHub {
   constructor({ state = new LiveState(), heartbeatMs = 15_000 } = {}) {
     this.state = state;
     this.clients = new Set();
+    this.replayTimers = new Set();
     this.heartbeat = setInterval(() => {
       for (const client of this.clients) client.write(": heartbeat\n\n");
     }, heartbeatMs);
@@ -111,6 +112,14 @@ export class LiveHub {
       return true;
     }
 
+    if (request.method === "POST" && url.pathname === "/api/replay") {
+      const requested = Number(url.searchParams.get("interval") || 650);
+      const interval = Math.max(200, Math.min(3_000, Number.isFinite(requested) ? requested : 650));
+      const count = this.replay(interval);
+      sendJson(response, 202, { accepted: true, events: count, interval });
+      return true;
+    }
+
     sendJson(response, 404, { error: "route API inconnue" });
     return true;
   }
@@ -119,8 +128,43 @@ export class LiveHub {
     for (const client of this.clients) writeSse(client, event.type, event, event.id);
   }
 
+  replay(interval) {
+    for (const timer of this.replayTimers) clearTimeout(timer);
+    this.replayTimers.clear();
+    const snapshot = this.state.snapshot();
+    const queue = [];
+    for (const pipeline of ["charts", "ground", "satellites"]) {
+      const status = snapshot.statuses.find((item) => item.pipeline === pipeline);
+      if (status) {
+        queue.push({
+          type: "status",
+          pipeline,
+          phase: status.phase,
+          message: status.message,
+          progress: status.progress,
+        });
+      }
+      for (const layer of snapshot.layers.filter((item) => item.group === pipeline)) {
+        queue.push({ type: "layer", action: "upsert", pipeline, layer });
+      }
+    }
+    const reset = this.state.apply({ type: "reset", pipeline: "charts" });
+    this.broadcast(reset);
+    queue.forEach((raw, index) => {
+      const timer = setTimeout(() => {
+        this.replayTimers.delete(timer);
+        const event = this.state.apply(raw);
+        this.broadcast(event);
+      }, 500 + index * interval);
+      this.replayTimers.add(timer);
+    });
+    return queue.length;
+  }
+
   close() {
     clearInterval(this.heartbeat);
+    for (const timer of this.replayTimers) clearTimeout(timer);
+    this.replayTimers.clear();
     for (const client of this.clients) client.end();
     this.clients.clear();
   }
